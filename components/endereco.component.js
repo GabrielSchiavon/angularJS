@@ -1,10 +1,15 @@
 function EnderecoController($scope, enderecoService) {
     var ctrl = this;
+    $scope.retorno;
 
     ctrl.buscarCEP = function(cep) {
         enderecoService.buscarCEP(cep)
-            .then(function(success){
-                console.log(success);
+            .then( function(response){
+                $scope.retorno = response.data;
+                if ($scope.retorno.resultado == 0) {
+                    alert($scope.retorno.response);
+                    $scope.retorno = null;
+                }
             }, function(err){
                 console.log(err);
             })
